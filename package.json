@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "deploy": "firebase deploy --only hosting:task-sender-vue",
+    "bd": "yarn build && yarn deploy"
   },
   "dependencies": {
     "core-js": "^3.6.5",

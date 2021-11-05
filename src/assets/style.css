@@ -20,6 +20,24 @@ h5 {
     margin-bottom: 1rem;
 }
 
+/* RESULT CARD */
+
+.result-card {
+    text-align: center;
+}
+
+.result-card img {
+    height: 100px;
+    width: auto;
+    margin-bottom: 1.2rem;
+}
+
+.result-card h5 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: .9rem;
+}
+
 /* INPUT */
 
 .input {
@@ -66,10 +84,17 @@ h5 {
 
 /* TABLE */
 
+.__area-heading{
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: right;
+    padding: 2rem 1rem;
+}
+
 .table {
-    font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
+    overflow-x: auto;
 }
 
 .table th {
@@ -101,6 +126,8 @@ h5 {
 
 .tag {
     background: #EEEEEE;
-    border-radius: 16px;
-    padding: 4px 8px;
+    border-radius: 1rem;
+    padding: .5rem 16px;
+    text-align: center;
+    display: inline-block;
 }

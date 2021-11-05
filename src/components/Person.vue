@@ -6,7 +6,9 @@
       </div>
     </td>
     <td>{{ person.potatoes }}</td>
-    <td>{{ person.tag }}</td>
+    <td>
+      <div class="tag">{{ person.tags }}</div>
+    </td>
     <td>{{ person.name }}</td>
     <td>{{ person.location }}</td>
   </tr>

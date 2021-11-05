@@ -1,6 +1,9 @@
 <script>
 export default {
   name: "Modal",
+  props: {
+    isHideButton: null,
+  },
   methods: {
     close() {
       this.$emit("close");
@@ -15,7 +18,12 @@ export default {
       <div class="modal">
         <header class="modal-header">
           <slot name="header"> This is the default tile! </slot>
-          <button type="button" class="btn-close" @click="close">
+          <button
+            type="button"
+            class="btn-close"
+            @click="close"
+            :hidden="isHideButton"
+          >
             <svg
               width="12"
               height="12"
