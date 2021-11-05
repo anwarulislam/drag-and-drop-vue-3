@@ -49,6 +49,7 @@ h5 {
     outline: 1px solid #CCCCCC;
     width: 100%;
     box-sizing: border-box;
+    margin-bottom: 5px;
 }
 
 /* BUTTON */
@@ -80,6 +81,11 @@ h5 {
 .is-grey {
     background: #EEEEEE;
     color: #555555;
+}
+
+.error {
+    color: brown;
+    font-size: 12px;
 }
 
 /* TABLE */

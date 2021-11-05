@@ -81,6 +81,10 @@
           v-model="numberOfPeople"
           v-on:keyup.enter="addPeople(numberOfPeople)"
         />
+
+        <p class="error" v-if="error">
+          <span>{{ error }}</span>
+        </p>
       </div>
     </template>
 
@@ -164,6 +168,7 @@ export default {
       numberOfPeople: null,
       seconds: 0,
       timer: null,
+      error: null,
     };
   },
   methods: {
@@ -178,6 +183,13 @@ export default {
       return numbers;
     },
     addPeople(numberOfPeople) {
+      // error if numberOfPeople is not between 20 and 100
+      if (numberOfPeople < 20 || numberOfPeople > 100) {
+        this.error = "Please enter a number between 20 and 100";
+        return;
+      }
+      
+      this.error = null;
       this.isModalVisible = false;
       const people = [];
       const numbers = this.getRandomIndex(1, 500, numberOfPeople);
@@ -234,7 +246,7 @@ export default {
     },
   },
   mounted() {
-    this.addPeople(10);
+    // this.addPeople(10);
   },
 };
 </script>
