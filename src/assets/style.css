@@ -84,7 +84,7 @@ h5 {
 
 /* TABLE */
 
-.__area-heading{
+.__area-heading {
     font-size: 1rem;
     font-weight: bold;
     text-align: right;
@@ -99,12 +99,17 @@ h5 {
 
 .table th {
     color: #555555;
+    border-top: .5px solid #CCCCCC;
     font-size: 14px;
+}
+
+.table .email-td {
+    box-shadow: 1px 1px 0px 0px rgba(0, 0, 0, 0.1);
 }
 
 .table td, .table th {
     /* 1px box-shadow bottom */
-    box-shadow: 0px 0px 0px .5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
     padding: .9rem;
 }
 

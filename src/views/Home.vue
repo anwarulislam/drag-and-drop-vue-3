@@ -24,7 +24,7 @@
         <table class="table">
           <thead>
             <tr>
-              <th>Email</th>
+              <th class="email-td">Email</th>
               <th>Potatoes</th>
               <th>Tags</th>
               <th>Full name</th>
@@ -232,6 +232,9 @@ export default {
         ghostClass: "ghost",
       };
     },
+  },
+  mounted() {
+    this.addPeople(10);
   },
 };
 </script>
