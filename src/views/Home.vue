@@ -1,67 +1,93 @@
 <template>
-  <div class="row">
-    <div class="col-6">
-      <h3>Transition</h3>
-      <draggable
-        class="list-group"
-        tag="transition-group"
-        :component-data="{
-          tag: 'ul',
-          type: 'transition-group',
-          name: !drag ? 'flip-list' : null,
-        }"
-        v-model="list"
-        v-bind="dragOptions"
-        @start="drag = true"
-        @end="
-          drag = false;
-          onDrop();
-        "
-        item-key="order"
-      >
-        <template #item="{ element }">
-          <li class="list-group-item">
-            <i
-              :class="
-                element.fixed ? 'fa fa-anchor' : 'glyphicon glyphicon-pushpin'
-              "
-              @click="element.fixed = !element.fixed"
-              aria-hidden="true"
-            ></i>
-            {{ element.name }}
-          </li>
-        </template>
-      </draggable>
+  <header class="__heading-area">
+    <h3>People Sorting System</h3>
+    <button
+      type="button"
+      class="button is-primary"
+      @click="isModalVisible = true"
+    >
+      Start Sorting
+    </button>
+  </header>
+
+  <main>
+    <div class="table-area">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Potatoes</th>
+            <th>Tags</th>
+            <th>Full name</th>
+            <th>Location</th>
+          </tr>
+        </thead>
+
+        <draggable
+          class="list-group"
+          tag="transition-group"
+          :component-data="{
+            tag: 'tbody',
+            type: 'transition-group',
+            name: !drag ? 'flip-list' : null,
+          }"
+          v-model="list"
+          v-bind="dragOptions"
+          @start="drag = true"
+          @end="
+            drag = false;
+            onDrop();
+          "
+          item-key="id"
+        >
+          <template #item="{ element }">
+            <Person :person="element" />
+          </template>
+        </draggable>
+      </table>
     </div>
-  </div>
+  </main>
+
+  <Modal v-show="isModalVisible" @close="isModalVisible = false">
+    <template v-slot:header>
+      <h5>How many people?</h5>
+    </template>
+
+    <template v-slot:body>
+      <div>
+        <p class="text-muted">
+          Enter a number of how many people you want to add to the list.
+        </p>
+        <input class="input" type="number" />
+      </div>
+    </template>
+
+    <template v-slot:footer>
+      <div class="action-button">
+        <button type="button" class="button is-grey" @click="addPeople">
+          Cancel
+        </button>
+        <button type="button" class="button is-primary" @click="addPeople">
+          Start
+        </button>
+      </div>
+    </template>
+  </Modal>
+
+  <Modal v-show="isResultModal" @close="isResultModal = false">
+    <template v-slot:header> Header </template>
+
+    <template v-slot:body> You have successfully sorted the list! </template>
+
+    <template v-slot:footer> Footer </template>
+  </Modal>
 </template>
 
 <script>
 import draggable from "vuedraggable";
-
-const users = [
-  {
-    email: "jo@jo.com",
-    name: "JoJo 11",
-    potatoes: 11,
-    tags: ["potato", "vegetable"],
-    location: "London",
-  },
-  {
-    email: "nono@jo.com",
-    name: "Aoaao 19",
-    potatoes: 19,
-    tags: ["potato", "vegetable"],
-    location: "London",
-  },
-  {
-    email: "bro@jo.com",
-    name: "Kaoaoo 15",
-    potatoes: 15,
-    tags: ["potato", "vegetable"],
-    location: "London",
-  },
-];
+import Modal from "./../components/Modal.vue";
+import Person from "./../components/Person.vue";
+import data from "./../assets/data.json";
 
 export default {
   name: "transition-example-2",
@@ -69,15 +95,19 @@ export default {
   order: 7,
   components: {
     draggable,
+    Modal,
+    Person,
   },
   data() {
     return {
-      list: users,
+      list: data.slice(0, 20),
       drag: false,
+      isModalVisible: false,
+      isResultModal: false,
     };
   },
   methods: {
-    onDrop(evt) {
+    onDrop() {
       this.isListSorted(this.list);
     },
     isListSorted(array) {
@@ -91,6 +121,19 @@ export default {
         }
       }
       return isSorted;
+    },
+    onSort() {
+      this.isResultModal = true;
+    },
+    getRandomIndex(min = 1, max = 500, len = 10) {
+      const numbers = [];
+      while (numbers.length < len) {
+        const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+        if (numbers.indexOf(randomNumber) === -1) {
+          numbers.push(randomNumber);
+        }
+      }
+      return numbers;
     },
   },
   computed: {
@@ -107,9 +150,20 @@ export default {
 </script>
 
 <style>
-.button {
-  margin-top: 35px;
+.__heading-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.2rem;
 }
+
+.table-area {
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.101972);
+  border-radius: 5px;
+}
+
 .flip-list-move {
   transition: transform 0.5s;
 }
